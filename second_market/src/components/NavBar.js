@@ -18,20 +18,11 @@ function NavBar() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Nav.Link><Link to="/">Home</Link></Nav.Link>
-            <Nav.Link><Link to="/mytickets">My Tickets</Link></Nav.Link>
-            <Nav.Link><Link to="/account">Account</Link></Nav.Link>
+            <Link className="m-1" id="RouterNavLink" to="/">Home</Link>
+            <Link className="m-1" id="RouterNavLink" to="/mytickets">My Tickets</Link>
+            <Link className="m-1" id="RouterNavLink" to="/account">Account</Link>
+            <Link className="m-1" id="RouterNavLink" to="/login">Logout</Link>
           </Nav>
-          <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder="Find an event"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-dark">Search</Button>
-            <Nav.Link><Link to="/login">Logout</Link></Nav.Link>
-          </Form>
         </Navbar.Collapse>
       </Container>
     </Navbar>
