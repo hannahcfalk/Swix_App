@@ -1,33 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
-import Login from './components/Login/Login';
-import SignUp from './components/Login/SignUp';
-import Account from './components/Account';
-import MyTickets from './components/MyTickets';
-import Dashboard from './components/Dashboard'
-import Container from 'react-bootstrap/Container';
-import NoPage from './components/NoPage'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+// General Imports
+import { Routes, Route } from "react-router-dom";
+import "./App.css";
+
+// Pages Imports
+import HomePage from "./pages/HomePage/HomePage";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
+
+// Component Imports
+import Footer from "./components/Footer/Footer";
+
+// Util Imports
+import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
   return (
-
-    
-            <Container fluid="xxl">
-    
-        <BrowserRouter>
-          <Routes>
-              <Route index element={<Dashboard />} />
-              <Route path="login" element={<Login />} />
-              <Route path="signup" element={<SignUp />} />
-              <Route path="mytickets" element={<MyTickets />} />
-              <Route path="account" element={<Account />} />
-              <Route path="*" element={<NoPage />} />
-          </Routes>
-    </BrowserRouter>
-         </Container>
-
-
+    <div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <HomePage />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
+      <Footer />
+    </div>
   );
 }
 
