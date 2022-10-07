@@ -1,5 +1,7 @@
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
+import { Link } from "react-router-dom";
+
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -48,7 +50,7 @@ const LoginPage = () => {
                   </Button>
               </Form.Group>
               <Form.Group className="mb-3 text-center" controlId="signUpRequest">
-               <Form.Text>Don't have an account. Sign up <a href="#">here</a></Form.Text>
+               <Form.Text>Don't have an account. Sign up  <Link to="/register">here</Link></Form.Text>
               </Form.Group>
              
             </Form>

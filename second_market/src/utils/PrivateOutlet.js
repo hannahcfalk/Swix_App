@@ -4,10 +4,8 @@ import AuthContext from "../context/AuthContext";
 
 const PrivateOutlet = () => {
   let { user } = useContext(AuthContext);
-  console.log(user);
   
   const { pathname } = useLocation();
-  console.log({ pathname });
 
   return user ? (
     <Outlet />

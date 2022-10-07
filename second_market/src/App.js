@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import Login from "./views/LoginPage";
-import Register from "./views/RegisterPage";
+import RegisterPage from "./views/RegisterPage";
 import Dashboard from "./views/Dashboard";
 import Account from "./views/Account";
 import MyTickets from "./views/MyTickets";
@@ -22,7 +22,7 @@ function App() {
           <Navbar />
                         <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/*" element={<PrivateOutlet />}>
           <Route path="home" element={<Dashboard />} />
           <Route path="account" element={<Account />} />
