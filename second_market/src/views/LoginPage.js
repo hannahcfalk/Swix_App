@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -7,24 +7,17 @@ import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-const Login = () => {
-  const [UnameOrEmail, setUnameOrEmail] = useState("");
-  const [password, setpassword] = useState("");
-  const navigate = useNavigate();
-
-  const user = {
-    email: "test@test.com",
-    username: "test123",
-    password: "123456"
-  };
-  const handlesubmit = (e) => {
+const LoginPage = () => {
+   const { loginUser } = useContext(AuthContext);
+  const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/");
+    const username = e.target.username.value;
+    const password = e.target.password.value;
+    username.length > 0 && loginUser(username, password);
   };
+
   return (
-
-
-      
+   
       <Row>
         <Col></Col>
         <Col>
@@ -39,13 +32,13 @@ const Login = () => {
                 </Card>
                 </Card.Title>
             
-            <Form onSubmit={handlesubmit}>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className="mb-3" controlId="username">
+                <Form.Label>Username</Form.Label>
+                <Form.Control type="text" placeholder="Enter username" />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Group className="mb-3" controlId="password">
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" placeholder="Password" />
               </Form.Group>
@@ -67,6 +60,6 @@ const Login = () => {
       </Row>
 
   );
-}
+};
 
-export default Login;
+export default LoginPage;

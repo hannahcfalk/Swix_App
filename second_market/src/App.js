@@ -1,34 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
-import Login from './components/Login/Login';
-import SignUp from './components/Login/SignUp';
-import Account from './components/Account';
-import MyTickets from './components/MyTickets';
-import Dashboard from './components/Dashboard'
+import React from "react";
+import "./index.css";
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import Login from "./views/LoginPage";
+import Register from "./views/RegisterPage";
+import Dashboard from "./views/Dashboard";
+import Account from "./views/Account";
+import MyTickets from "./views/MyTickets";
+import NoPage from "./views/NoPage";
 import Container from 'react-bootstrap/Container';
-import NoPage from './components/NoPage'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import PrivateOutlet from "./utils/PrivateOutlet";
 
 function App() {
   return (
-
-    
+    <Router>
+      <div className="flex flex-col min-h-screen overflow-hidden">
             <Container fluid="xxl">
-    
-        <BrowserRouter>
-          <Routes>
-              <Route index element={<Dashboard />} />
-              <Route path="login" element={<Login />} />
-              <Route path="signup" element={<SignUp />} />
-              <Route path="mytickets" element={<MyTickets />} />
-              <Route path="account" element={<Account />} />
-              <Route path="*" element={<NoPage />} />
-          </Routes>
-    </BrowserRouter>
-         </Container>
+        <AuthProvider>
+          <Navbar />
+                        <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/*" element={<PrivateOutlet />}>
+          <Route path="home" element={<Dashboard />} />
+          <Route path="account" element={<Account />} />
+          <Route path="mytickets" element={<MyTickets />} />
+          <Route path="*" element={<NoPage />} />
+        </Route>
+      </Routes>
+        </AuthProvider>
 
-
+        </Container>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
 export default App;
+

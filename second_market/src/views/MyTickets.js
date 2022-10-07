@@ -1,5 +1,4 @@
-import Ticket from './Ticket';
-import NavBar from './NavBar';
+import Ticket from '../components/Ticket';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Select from 'react-select';
@@ -10,7 +9,6 @@ import Tabs from 'react-bootstrap/Tabs';
 function MyTickets() {
   return (
     <div>
-        <NavBar />
 
         <Tabs
           defaultActiveKey="sold"

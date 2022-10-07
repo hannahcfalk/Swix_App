@@ -72,3 +72,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ## Code used
 https://www.w3schools.com/react/react_router.asp
+Ticket marketplace built using https://github.com/mwz73trz/auth-simple-jwt
+
+https://blog.utsavkumar.tech/private-routes-in-react-router-v6

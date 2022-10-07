@@ -1,10 +1,10 @@
-import Ticket from './Ticket';
-import NavBar from './NavBar';
+import Ticket from '../components/Ticket';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
@@ -74,8 +74,8 @@ function Dashboard() {
 
   return (
       <div>
+
       < TransferCheck />
-      <NavBar />
       <Row>
         <Col>
             <Select placeholder="Find an event" options={options} className="m-1"/>
@@ -96,7 +96,9 @@ function Dashboard() {
             <Ticket event="Opening Ball" price="45.00" url="blah.com" owner="hannah"/>
         </Col>
       </Row>
+
       </div>
+
 
   );
 }
