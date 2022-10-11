@@ -1,30 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {Modal, Button, Row, Col, Form, Container} from 'react-bootstrap';
 import Select from 'react-select';
 import axios from 'axios';
 import DatePicker from "react-datepicker";
-
+import AuthContext from "../context/AuthContext";
 import "react-datepicker/dist/react-datepicker.css";
 
 const RegisterPage = () => {
-    const [birthday, setBirthday] = useState(new Date());
+
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
+    const [birthday, setBirthday] = useState(new Date());
     const [gender, setGender] = useState("");
     const [year, setYear] = useState("");
     const [course, setCourse] = useState("");
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
+    const { registerUser } = useContext(AuthContext);
 
     const options = [
       { value: 'opening_ball', label: 'Opening Ball' },
       { value: 'down_to_funk', label: 'Down To Funk' },
       { value: 'bpm', label: 'BPM' }
      ]
-
-     const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+     const handleSubmit = async (e) => {
+        e.preventDefault();
+        registerUser(username, email, birthday, gender, year, course, password, password2);
+     };
     return (
             
           <Form className="m-1" onSubmit={handleSubmit}>
@@ -56,7 +58,8 @@ const RegisterPage = () => {
                   <Select
                     defaultValue={[null]}
                     options={options}
-                    onChange={(e) => setGender(e.target.value)}
+                    value={gender}
+                    onChange={(e) => setGender(e)}
                 />
               </Form.Group>
               <Form.Group className="mb-3">
@@ -64,7 +67,8 @@ const RegisterPage = () => {
                   <Select
                     defaultValue={[null]}
                     options={options}
-                    onChange={(e) => setYear(e.target.value)}
+                    value={year}
+                    onChange={(e) => setYear(e)}
                 />
               </Form.Group>
               <Form.Group className="mb-3">
@@ -72,7 +76,8 @@ const RegisterPage = () => {
                   <Select
                     defaultValue={[null]}
                     options={options}
-                    onChange={(e) => setCourse(e.target.value)}
+                    value={course}
+                    onChange={(e) => setCourse(e)}
                 />
               </Form.Group>
                 <Form.Group className="mb-3" controlId="password">
