@@ -17,6 +17,10 @@ class StudentRegisterView(generics.CreateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = StudentRegisterSerializer
 
+    def post(self, request, *args, **kwargs):
+        print(request.data)
+        return self.create(request, *args, **kwargs)
+
 
 @api_view(['GET'])
 def getRoutes(request):

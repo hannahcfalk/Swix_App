@@ -14,24 +14,19 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         return token
 
 
-
-class StudentSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Student
-        fields = '__all__'
-
-
-
 class StudentRegisterSerializer(serializers.ModelSerializer):
+    username = serializers.CharField()
+    email = serializers.EmailField()
     password = serializers.CharField(
         write_only=True, required=True, validators=[validators.validate_password])
     password2 = serializers.CharField(write_only=True, required=True)
-    student = StudentSerializer()
+
+    
 
     class Meta:
-        model = CustomUser
-        fields = ('username', 'email', 'password', 'password2', 'student')
+        model = Student
+        fields = ('username', 'email', 'dob', 'gender', 'course', 'year', 'password', 'password2',)
+
 
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
@@ -40,11 +35,18 @@ class StudentRegisterSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        student_data = validated_data.pop('student')
         user = CustomUser.objects.create(
-            username=validated_data['username'], email=validated_data['email'])
-        user.set_password(validated_data['password'])
+            username=validated_data["username"],
+            email=validated_data["email"]
+        )
+        user.set_password(validated_data["password"])
         user.save()
-        Student.objects.create(user=user, **student_data)
-        return user
+        Student.objects.create(
+            user_id=user.id,
+            dob=validated_data['dob'],
+            gender=validated_data["gender"],
+            course=validated_data["course"],
+            year=validated_data["year"]
+        )
+        return validated_data
 

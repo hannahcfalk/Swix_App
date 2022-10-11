@@ -10,7 +10,7 @@ const RegisterPage = () => {
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
-    const [birthday, setBirthday] = useState(new Date());
+    const [dob, setBirthday] = useState(new Date());
     const [gender, setGender] = useState("");
     const [year, setYear] = useState("");
     const [course, setCourse] = useState("");
@@ -18,14 +18,31 @@ const RegisterPage = () => {
     const [password2, setPassword2] = useState("");
     const { registerUser } = useContext(AuthContext);
 
-    const options = [
-      { value: 'opening_ball', label: 'Opening Ball' },
-      { value: 'down_to_funk', label: 'Down To Funk' },
-      { value: 'bpm', label: 'BPM' }
+    const genderOptions = [
+      { value: 'female', label: 'Female' },
+      { value: 'male', label: 'Male' },
+      { value: 'non-binary', label: 'Non-binary' },
+      { value: 'other', label: 'Other' },
+     ]
+     const yearOptions = [
+      { value: '1st', label: '1st' },
+      { value: '2nd', label: '2nd' },
+      { value: '3rd', label: '3rd' },
+      { value: '4th', label: '4th' },
+      { value: '5th', label: '5th' },
+      { value: 'masters', label: 'Masters' },
+      { value: 'phd', label: 'PhD' },
+      { value: 'other', label: 'Other' },
+     ]
+     const courseOptions = [
+      { value: 'management', label: 'Management' },
+      { value: 'computer-science', label: 'Computer Science' },
+      { value: 'maths', label: 'Maths' },
+      { value: 'other', label: 'Other' },
      ]
      const handleSubmit = async (e) => {
         e.preventDefault();
-        registerUser(username, email, birthday, gender, year, course, password, password2);
+        registerUser(username, email, dob.toISOString().split('T')[0], gender['value'], year['value'], course['value'], password, password2);
      };
     return (
             
@@ -50,14 +67,14 @@ const RegisterPage = () => {
               </Form.Group>
               <Form.Group className="mb-3">
                   <Form.Label>Date of Birth</Form.Label>
-                  <DatePicker selected={birthday} onChange={(date:Date) => setBirthday(date)} />
+                  <DatePicker selected={dob} onChange={(date:Date) => setBirthday(date)} />
               </Form.Group>
 
               <Form.Group className="mb-3">
                   <Form.Label>Gender</Form.Label>
                   <Select
                     defaultValue={[null]}
-                    options={options}
+                    options={genderOptions}
                     value={gender}
                     onChange={(e) => setGender(e)}
                 />
@@ -66,7 +83,7 @@ const RegisterPage = () => {
                   <Form.Label>Year</Form.Label>
                   <Select
                     defaultValue={[null]}
-                    options={options}
+                    options={yearOptions}
                     value={year}
                     onChange={(e) => setYear(e)}
                 />
@@ -75,7 +92,7 @@ const RegisterPage = () => {
                   <Form.Label>Course</Form.Label>
                   <Select
                     defaultValue={[null]}
-                    options={options}
+                    options={courseOptions}
                     value={course}
                     onChange={(e) => setCourse(e)}
                 />
