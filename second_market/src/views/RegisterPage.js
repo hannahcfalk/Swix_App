@@ -101,7 +101,6 @@ const RegisterPage = () => {
               <Form.Group className="mb-3" controlId="validationFormik01">
                   <Form.Label>Username</Form.Label>
                   <Form.Control
-                      required
                       type="text" 
                       placeholder="Choose a username"
                       onChange={handleChange}
@@ -115,6 +114,7 @@ const RegisterPage = () => {
        </Form.Group>
               <Form.Group className="mb-3" controlId="validationFormik02">
                   <Form.Label>Email</Form.Label>
+                  <InputGroup className="mb-3">
                   <Form.Control
                       type="text" 
                       name="email"
@@ -211,7 +211,10 @@ const RegisterPage = () => {
                   Submit
               </Button>
           </Form>
-        );
+
+            )}
+    </Formik>
+            );
 }
 
 export default RegisterPage;
