@@ -15,7 +15,7 @@ const schema = Yup.object().shape({
          .max(15, 'Must be 15 characters or less')
          .required('Required'),
        email: Yup.string().required('Required'),
-       gender: Yup.string().required('Required'),
+       gender: Yup.string().required('This field is required'),
        year: Yup.string().required('Required'),
        course: Yup.string().required('Required'),
        password: Yup.string().required("This field is required"),
@@ -68,6 +68,7 @@ const RegisterPage = () => {
        // e.preventDefault();
         //registerUser(username, email, dob.toISOString().split('T')[0], gender['value'], year['value'], course['value'], password, password2);
     // };
+
 
     return (
             <Formik
@@ -124,51 +125,43 @@ const RegisterPage = () => {
 
               <Form.Group className="mb-3" controlId="validationFormikGender">
                   <Form.Label>Gender</Form.Label>
-                  <Select
+                  <MySelect
                   placeholder="Gender"
-                  value={selectedGender}
-                  onChange={selectedOption => {
-                    handleGenderChange(selectedOption);
-                    handleChange("gender");
-                  }}
+                  value={values.gender}
+                  onChange={handleChange}
                   isSearchable={true}
                   options={genderOptions}
                   name="gender"
+                  isValid={errors.gender}
                 />
-                {errors.year}
+                <p>{errors.gender}</p>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="validationFormikYear">
-                  <Form.Label>Year</Form.Label>
-                  <InputGroup hasValidation>
-                  <Select
-                    defaultValue={[null]}
-                    options={yearOptions}
-                    value={values.year}
-                    onChange={handleChange}
-                    isInvalid={!!errors.year}
-                  />
-                   <Form.Control.Feedback type="invalid">
-                  {errors.year}
-
-                </Form.Control.Feedback>
-                </InputGroup>
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="validationFormikCourse">
+               <Form.Group className="mb-3" controlId="validationFormikCourse">
                   <Form.Label>Course</Form.Label>
-                   <InputGroup hasValidation>
-                  <Select
-                    defaultValue={[null]}
-                    options={courseOptions}
-                    value={values.course}
-                    onChange={handleChange}
-                    isInvalid={!!errors.course}
-                  />
-                   <Form.Control.Feedback type="invalid">
-                  {errors.course}
-
-                </Form.Control.Feedback>
-                </InputGroup>
+                  <MySelect
+                  placeholder="Course"
+                  value={values.course}
+                  onChange={handleChange}
+                  isSearchable={true}
+                  options={courseOptions}
+                  name="course"
+                  isValid={errors.course}
+                />
+                <p>{errors.course}</p>
+              </Form.Group>
+               <Form.Group className="mb-3" controlId="validationFormikYear">
+                  <Form.Label>Year</Form.Label>
+                 <MySelect
+                  placeholder="Year"
+                  value={values.year}
+                  onChange={handleChange}
+                  isSearchable={true}
+                  options={yearOptions}
+                  name="year"
+                  isValid={errors.year}
+                />
+                <p>{errors.year}</p>
               </Form.Group>
                 <Form.Group className="mb-3" controlId="validationFormikPassword">
                 <Form.Label>Password</Form.Label>

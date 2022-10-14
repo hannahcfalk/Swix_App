@@ -1,21 +1,24 @@
-import Select from "react-select";
+import React from 'react';
+import Select from 'react-select';
 
-export default function MySelect({ onChange, options, value, name, className = "" }) {
-    const defaultValue = (options, value) => {
-        return options ? options.find((option) => option.value === value) : "";
-    };
+class MySelect extends React.Component {
+  render() {
+    const {
+      isValid
+    } = this.props
+    
+    const customStyles = {
+      control: (base, state) => ({
+        ...base,
+        // state.isFocused can display different borderColor if you need it
+        borderColor: state.isFocused ?
+          'grey' : isValid ?
+          '#a94442' : 'grey',
 
-    return (
-        <div>
-            <Select
-                className={className}
-                name={name}
-                value={defaultValue(options, value)}
-                onChange={(value) => {
-                    onChange(value);
-                }}
-                options={options}
-            />
-        </div>
-    );
+      })
+    }
+    return <Select styles={ customStyles } {...this.props}/>
+  }
 }
+
+export default MySelect;
