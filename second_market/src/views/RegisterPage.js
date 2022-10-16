@@ -1,5 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {Modal, Button, Row, Col, Form, Container} from 'react-bootstrap';
+import { useLocation } from "react-router-dom";
 import Select from 'react-select';
 import axios from 'axios';
 import AuthContext from "../context/AuthContext";
@@ -10,6 +11,7 @@ import YupPassword from 'yup-password'
 
 import InputGroup from 'react-bootstrap/InputGroup';
 import MySelect from '../components/MySelect';
+import ErrorToast from '../components/ErrorToast';
 import DatePicker from "react-datepicker";
 import './css/datepicker.css';
 
@@ -41,7 +43,9 @@ const maxDate = dt.setFullYear(dt.getFullYear() - 18);
 const RegisterPage = () => {
 
     const [submitted, setSubmitted] = useState(false);
+    const [formErrs, setFormErrs] = useState({});
     const { registerUser } = useContext(AuthContext);
+    const location = useLocation();
 
     const genderOptions = [
       { value: 'female', label: 'Female' },
@@ -71,6 +75,18 @@ const RegisterPage = () => {
        registerUser(e);
         };
 
+    const handleClick = () => {
+        setSubmitted(true);
+    }
+
+      useEffect(() => {
+          if (location.state) {
+                setFormErrs(location.state.formErrs);
+          }
+ 
+          
+  });
+
 
     return (
             <Formik
@@ -97,14 +113,17 @@ const RegisterPage = () => {
         errors,
         setFieldValue,
       }) => (
+
           <Form className="m-1" noValidate onSubmit={handleSubmit}>
+            <ErrorToast data={formErrs} />
               <Form.Group className="mb-3" controlId="validationFormik01">
                   <Form.Label>Username</Form.Label>
                   <Form.Control
                       type="text" 
+                      name="username"
                       placeholder="Choose a username"
                       onChange={handleChange}
-                      isValid={touched.username && !errors.username}
+                      isValid={touched.username && !errors.username && !formErrs.username}
                       isInvalid={!!errors.username && submitted}
                   />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -120,7 +139,7 @@ const RegisterPage = () => {
                       name="email"
                       placeholder="Email code e.g. ab12"
                       onChange={handleChange}
-                      isValid={touched.email && !errors.email}
+                      isValid={touched.email && !errors.email && !formErrs.email}
                       isInvalid={!!errors.email && submitted}
                   />
         <InputGroup.Text id="basic-addon2">@st-andrews.ac.uk</InputGroup.Text>
@@ -188,8 +207,10 @@ const RegisterPage = () => {
                     placeholder="Password"
                     name="password"
                     onChange={handleChange}
+                    isValid={touched.password && !errors.password}
                     isInvalid={!!errors.password && submitted}
                   />
+                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
 <Form.Control.Feedback type="invalid">
                 {errors.password}
               </Form.Control.Feedback>
@@ -201,13 +222,15 @@ const RegisterPage = () => {
                     placeholder="Confirm Password"
                     name="password2"
                     onChange={handleChange}
+                    isValid={touched.password2 && !errors.password2}
                     isInvalid={!!errors.password2 && submitted}
                   />
+               <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
 <Form.Control.Feedback type="invalid">
                 {errors.password2}
               </Form.Control.Feedback>
               </Form.Group>
-              <Button variant="primary" type="submit" onClick={() => setSubmitted(true)}>
+              <Button variant="primary" type="submit" onClick={handleClick}>
                   Submit
               </Button>
           </Form>

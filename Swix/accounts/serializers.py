@@ -27,6 +27,17 @@ class StudentRegisterSerializer(serializers.ModelSerializer):
         model = Student
         fields = ('username', 'email', 'dob', 'gender', 'course', 'year', 'password', 'password2',)
 
+    def validate_username(self, username):
+        if CustomUser.objects.filter(username=username).exists():
+            raise serializers.ValidationError(
+                "A user with this username already exists")
+        return username
+
+    def validate_email(self, email):
+        if CustomUser.objects.filter(email=email).exists():
+            raise serializers.ValidationError(
+                "A user with this email already exists")
+        return email
 
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:

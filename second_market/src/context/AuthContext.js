@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Redirect } from "react-router-dom";
+import RegisterPage from "../views/RegisterPage";
 
 const AuthContext = createContext();
 
@@ -54,8 +55,14 @@ export const AuthProvider = ({ children }) => {
     });
     if (response.status === 201) {
       history("/login");
-    } else {
-      alert("Something went wrong!");
+    }
+    else {
+        const err = await response.json();
+        history('/register', {
+      state: {
+        formErrs: err,
+      }
+      });
     }
   };
 
