@@ -33,6 +33,7 @@ const schema = Yup.object().shape({
        .required('This field is required'),
        password2: Yup.string()
        .oneOf([Yup.ref('password'),null], 'Passwords must match')
+       .required('This field is required')
 });
 
 
@@ -95,7 +96,7 @@ const RegisterPage = () => {
       initialValues={{
        username: '',
        email: '',
-       dob: dt.toISOString().split('T')[0],
+       dob: maxDate,
        gender: '',
        year: '',
        course: '',
@@ -152,8 +153,8 @@ const RegisterPage = () => {
               <Form.Group className="mb-3 text-center" controlId="validationFormikBirthday">
                 <Form.Label>Birthday</Form.Label>
                 <DatePicker className="p-2"
-                    selected={maxDate}
-                    onChange={(e) => setFieldValue('dob', e.toISOString().split('T')[0])}
+                    selected={values.dob}
+                    onChange={(e) => setFieldValue('dob', e)}
                     maxDate={maxDate}
                     dateFormat="dd/MM/yyyy"
                     yearDropdownItemNumber={100}

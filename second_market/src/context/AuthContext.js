@@ -22,16 +22,14 @@ export const AuthProvider = ({ children }) => {
 
   const history = useNavigate();
 
-  const loginUser = async (username, password) => {
+  const loginUser = async (loginData) => {
+      console.log(loginData);
     const response = await fetch("http://127.0.0.1:8000/accounts/token/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        username,
-        password,
-      }),
+      body: JSON.stringify(loginData),
     });
     const data = await response.json();
 
@@ -41,7 +39,11 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("authTokens", JSON.stringify(data));
       history("/home");
     } else {
-      alert("Something went wrong!");
+        history('/login', {
+      state: {
+        formErrs: data,
+      }
+      });
     }
   };
 
