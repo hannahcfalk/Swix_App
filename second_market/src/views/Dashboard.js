@@ -9,7 +9,8 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
 import Select from 'react-select';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import useAxios from "../utils/useAxios";
 
 function TransferCheck() {
     const [show, setShow] = useState(true);
@@ -70,11 +71,29 @@ function Dashboard() {
       { value: 'down_to_funk', label: 'Down To Funk' },
       { value: 'bpm', label: 'BPM' }
     ]
+ const [res, setRes] = useState([]);
+  const api = useAxios();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get("/second_market/tickets/");
+        console.log(response.data);
+        setRes(response.data);
+      } catch {
+        setRes("Something went wrong");
+      }
+    };
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+
 
 
   return (
       <div>
-
+         {res.entries()}
       < TransferCheck />
       <Row>
         <Col>
