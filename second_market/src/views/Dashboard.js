@@ -65,20 +65,20 @@ function TransferCheck() {
     }
 }
 
+
 function Dashboard() {
     const options = [
       { value: 'opening_ball', label: 'Opening Ball' },
       { value: 'down_to_funk', label: 'Down To Funk' },
       { value: 'bpm', label: 'BPM' }
     ]
- const [res, setRes] = useState([]);
+ const [res, setRes] = useState({});
   const api = useAxios();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await api.get("/second_market/tickets/");
-        console.log(response.data);
         setRes(response.data);
       } catch {
         setRes("Something went wrong");
@@ -88,33 +88,29 @@ function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
-
-
   return (
       <div>
-         {res.entries()}
-      < TransferCheck />
-      <Row>
+            < TransferCheck />
+                  <Row>
         <Col>
             <Select placeholder="Find an event" options={options} className="m-1"/>
         </Col>
       </Row>
-      <Row>
+
+           {Object.values(res).map((value, index) => {
+        return (
+          <div key={index}>
+                <Row>
         <Col>
-            <Ticket event="Opening Ball" price="45.00" url="blah.com" owner="hannah"/>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-            <Ticket event="Opening Ball" price="45.00" url="blah.com" owner="hannah"/>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-            <Ticket event="Opening Ball" price="45.00" url="blah.com" owner="hannah"/>
-        </Col>
-      </Row>
+                      <Ticket event={value.event.name} price={value.price} url={value.event.url} owner={value.owner} />
+</Col>
+</Row>
+
+          </div>
+        );
+      })}
+
+
 
       </div>
 
