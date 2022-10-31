@@ -49,8 +49,8 @@ const LoginPage = () => {
         <Card.Title>
                 <Card className="m-1 p-3" bg="light">
                   <Card.Body className="text-center">
-                    <Card.Title>St Andrews Ticket Market</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">Safely and securely transfer tickets</Card.Subtitle>
+                    <Card.Title>Pigeon</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">Securely buy and transfer tickets</Card.Subtitle>
                   </Card.Body>
                 </Card>
                 </Card.Title>

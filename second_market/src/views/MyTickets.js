@@ -32,7 +32,7 @@ function MyTickets() {
             <Tab eventKey="bought" title="Bought">
                 <Row>
                     <Col className="p-1">
-                        <Ticket event="Opening Ball" price="40.00" url="blah.com" status="BOUGHT" fixr="www.fixr.com"/>
+                        <Ticket event="Sinners" price="2.00" url="blah.com" status="BOUGHT"/>
                     </Col>
                 </Row>
             </Tab>

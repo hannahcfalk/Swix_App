@@ -11,108 +11,413 @@ import Card from 'react-bootstrap/Card';
 import Select from 'react-select';
 import React, { useState, useEffect } from 'react';
 import useAxios from "../utils/useAxios";
-
-function TransferCheck() {
-    const [show, setShow] = useState(true);
-    const [showConfirmation, setShowConfirmation] = useState(false);
-
-    const handleYes = () => setShow(false);
-    const handleNo = () => {
-        setShow(false);
-        setShowConfirmation(true);
-    }
-    const handleCloseConfirmationYes = () => setShowConfirmation(false);
-
-    const handleCloseConfirmationNo = () => {
-        setShowConfirmation(false);
-        setShow(true);
-    }
-
-    const unverifiedTransfer = true;
-    if (unverifiedTransfer) {
-        return (
-                <div>
-                 <Toast style={{ width: '100%'}} show={show} className="m-3 bg-danger">
-                      <Toast.Header closeButton={false}>
-                        <strong className="me-auto">Unverified Transfer</strong>
-                        <small>11 mins ago</small>
-                      </Toast.Header>
-                  <Toast.Body>
-                    <Row>
-                        <h4>Were you able to successfully get your ticket transferred? If not we will process a refund</h4>
-                        <small>(please note that we have methods of verifying whether the ticket was successfully transferred so please be honest)</small>
-                    </Row>
-                    <Row>
-                        <ButtonGroup>
-                      <Button variant="secondary" className="m-1" onClick={handleYes}>Yes</Button>
-                      <Button variant="secondary" className="m-1" onClick={handleNo}>No</Button>
-                    </ButtonGroup>
-                    </Row>
-                    </Toast.Body>
-                </Toast>
-                <Modal show={showConfirmation}>
-                    <Card className="text-center">
-                        <Card.Header>Are you sure?</Card.Header>
-                          <Card.Body>
-                            <Card.Text>We are able to verify this and if you falsely claim you didn't receive the ticket to get a refund, you will be banned from the platform</Card.Text>
-                            <Button className="m-2" variant="primary" onClick={handleCloseConfirmationYes}>Yes</Button>
-                            <Button className="m-2" variant="primary" onClick={handleCloseConfirmationNo}>No</Button>
-                          </Card.Body>
-                    </Card>
-                </Modal>
-                </div>
-        );
-    }
-}
+import sinnerssaints from './images/sinnerssaints.jpg';
 
 
 function Dashboard() {
-    const options = [
-      { value: 'opening_ball', label: 'Opening Ball' },
-      { value: 'down_to_funk', label: 'Down To Funk' },
-      { value: 'bpm', label: 'BPM' }
-    ]
- const [res, setRes] = useState({});
-  const api = useAxios();
+    const [showBuyModal, setShowBuyModal] = useState(false);
+    const [showRevealModal, setShowRevealModal] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await api.get("/second_market/tickets/");
-        setRes(response.data);
-      } catch {
-        setRes("Something went wrong");
-      }
-    };
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const handleCloseBuyModal = () => setShowBuyModal(false);
+    const handleShowBuyModal = () => setShowBuyModal(true);
+    
+    const handleCloseRevealModal = () => setShowRevealModal(false);
+    const handleShowRevealModal = () => {
+        setShowBuyModal(false);
+        setShowRevealModal(true);
+    }
 
   return (
       <div>
-            < TransferCheck />
-                  <Row>
+           <h2>Welcome Hannah!</h2>
+       <Container>
+      <Row>
+        <Col><h3 className="text-center m-2">November 2022</h3></Col>
+      </Row>
+      <Row className="p-1"> 
         <Col>
-            <Select placeholder="Find an event" options={options} className="m-1"/>
+         <Card style={{ opacity: 0.5, }} border="secondary" className="h-100">
+        <Card.Header>31 - Halloween</Card.Header>
+        <Card.Body>
+          <Card.Text>
+            <Card className="m-1 p-1" style={{ backgroundColor: 'rgba(78, 165, 32, 0.3)', }}>Fright Night</Card>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+            <Card border="secondary" className="h-100">
+        <Card.Header>1</Card.Header>
+        <Card.Body>
+          <Card.Text>
+              <p>No events</p>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card border="secondary" className="h-100">
+        <Card.Header>2</Card.Header>
+        <Card.Body>
+          <Card.Text>
+             <Card className="m-1 p-1" style={{ backgroundColor: 'rgba(199, 0, 255, 0.3)', }} onClick={handleShowBuyModal}>Sinners</Card>
+          </Card.Text>
+        </Card.Body>
+
+               <Modal show={showRevealModal} onHide={handleCloseRevealModal}>
+                <Card className="text-center">
+                    <Card.Header><h3>Sinners</h3> (2nd November 2022)</Card.Header>
+                    <Card.Text>
+                        Thanks for purchasing your sinners ticket, it will be available in your tickets page
+                    </Card.Text>
+                </Card>
+            </Modal>
+
+            <Modal show={showBuyModal} onHide={handleCloseBuyModal}>
+                 <Card className="text-center">
+                  <Card.Img variant="top" src={sinnerssaints} />
+                  <Card.Body>
+                    <Card.Title>Sinners</Card.Title>
+                    <Card.Text>
+                      Sinners is the St Andrews night out for sports teams!
+                    </Card.Text>
+                    <Button variant="primary" onClick={handleShowRevealModal}>Buy for {'\u00A3'}2</Button>
+                  </Card.Body>
+                </Card>
+            </Modal>
+      </Card>
+        </Col>
+        <Col>
+              <Card border="secondary" className="h-100">
+        <Card.Header>3</Card.Header>
+        <Card.Body>
+          <Card.Text>
+                     <p>No events</p>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card border="secondary" className="h-100">
+        <Card.Header>4</Card.Header>
+        <Card.Body>
+          <Card.Text>
+              <Card className="m-1 p-1" style={{ backgroundColor: 'rgba(255, 0, 0, 0.3)' }}>Bop</Card>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card border="secondary" className="h-100">
+        <Card.Header>5 - Bonfire Night</Card.Header>
+        <Card.Body>
+          <Card.Text>
+             <Card className="m-1 p-1" style={{ backgroundColor: 'rgba(238, 147, 35, 0.3)', }}>Bonfire Party</Card>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card border="secondary" className="h-100">
+        <Card.Header>6</Card.Header>
+        <Card.Body>
+          <Card.Text>
+                    <Card className="m-1 p-1" style={{ backgroundColor: 'rgba(35, 238, 235, 0.3)', }}>Pub Quiz</Card>
+          </Card.Text>
+        </Card.Body>
+      </Card>
         </Col>
       </Row>
-
-           {Object.values(res).map((value, index) => {
-        return (
-          <div key={index}>
-                <Row>
+        <Row className="p-1">
         <Col>
-                      <Ticket event={value.event.name} price={value.price} url={value.event.url} owner={value.owner} />
-</Col>
-</Row>
-
-          </div>
-        );
-      })}
-
-
-
-      </div>
+         <Card border="secondary" className="h-100">
+        <Card.Header>7</Card.Header>
+        <Card.Body>
+          <Card.Text>
+               <p>No events</p>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+            <Card border="secondary" className="h-100">
+        <Card.Header>8</Card.Header>
+        <Card.Body>
+          <Card.Text>
+              <p>No events</p>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card border="secondary" className="h-100">
+        <Card.Header>9</Card.Header>
+        <Card.Body>
+          <Card.Text>
+             <Card className="m-1 p-1" style={{ backgroundColor: 'rgba(199, 0, 255, 0.3)', }}>Sinners</Card>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card border="secondary" className="h-100">
+        <Card.Header>10</Card.Header>
+        <Card.Body>
+          <Card.Text>
+                <Card className="m-1 p-1" style={{ backgroundColor: 'rgba(100, 0, 100, 0.3)', }}>Karaoke Night</Card>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card border="secondary" className="h-100">
+        <Card.Header>11</Card.Header>
+        <Card.Body>
+          <Card.Text>
+              <Card className="m-1 p-1" style={{ backgroundColor: 'rgba(255, 0, 0, 0.3)' }}>Bop</Card>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card border="secondary" className="h-100">
+        <Card.Header>12</Card.Header>
+        <Card.Body>
+          <Card.Text>
+             <p>No events</p>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card border="secondary" className="h-100">
+        <Card.Header>13</Card.Header>
+        <Card.Body>
+          <Card.Text>
+          <Card className="m-1 p-1" style={{ backgroundColor: 'rgba(35, 238, 235, 0.3)', }}>Pub Quiz</Card>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+      </Row>
+        <Row className="p-1">
+        <Col>
+         <Card border="secondary" className="h-100">
+        <Card.Header>14</Card.Header>
+        <Card.Body>
+          <Card.Text>
+               <p>No events</p>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+            <Card border="secondary" className="h-100">
+        <Card.Header>15</Card.Header>
+        <Card.Body>
+          <Card.Text>
+              <p>No events</p>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card border="secondary" className="h-100">
+        <Card.Header>16</Card.Header>
+        <Card.Body>
+          <Card.Text>
+             <Card className="m-1 p-1" style={{ backgroundColor: 'rgba(199, 0, 255, 0.3)', }}>Sinners</Card>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card border="secondary" className="h-100">
+        <Card.Header>17</Card.Header>
+        <Card.Body>
+          <Card.Text>
+                <p>No events</p>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card border="secondary" className="h-100">
+        <Card.Header>18</Card.Header>
+        <Card.Body>
+          <Card.Text>
+              <Card className="m-1 p-1" style={{ backgroundColor: 'rgba(255, 0, 0, 0.3)' }}>Bop</Card>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card border="secondary" className="h-100">
+        <Card.Header>19</Card.Header>
+        <Card.Body>
+          <Card.Text>
+             <p>No events</p>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card border="secondary" className="h-100">
+        <Card.Header>20</Card.Header>
+        <Card.Body>
+          <Card.Text>
+          <Card className="m-1 p-1" style={{ backgroundColor: 'rgba(35, 238, 235, 0.3)', }}>Pub Quiz</Card>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+      </Row>
+ <Row className="p-1">
+        <Col>
+         <Card border="secondary" className="h-100">
+        <Card.Header>21</Card.Header>
+        <Card.Body>
+          <Card.Text>
+               <p>No events</p>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+            <Card border="secondary" className="h-100">
+        <Card.Header>22</Card.Header>
+        <Card.Body>
+          <Card.Text>
+              <p>No events</p>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card border="secondary" className="h-100">
+        <Card.Header>23</Card.Header>
+        <Card.Body>
+          <Card.Text>
+             <Card className="m-1 p-1" style={{ backgroundColor: 'rgba(199, 0, 255, 0.3)', }}>Sinners</Card>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card border="secondary" className="h-100">
+        <Card.Header>24</Card.Header>
+        <Card.Body>
+          <Card.Text>
+                <p>No events</p>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card border="secondary" className="h-100">
+        <Card.Header>25</Card.Header>
+        <Card.Body>
+          <Card.Text>
+              <Card className="m-1 p-1" style={{ backgroundColor: 'rgba(255, 0, 0, 0.3)' }}>Bop</Card>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card border="secondary" className="h-100">
+        <Card.Header>26</Card.Header>
+        <Card.Body>
+          <Card.Text>
+             <p>No events</p>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card border="secondary" className="h-100">
+        <Card.Header>27</Card.Header>
+        <Card.Body>
+          <Card.Text>
+          <Card className="m-1 p-1" style={{ backgroundColor: 'rgba(35, 238, 235, 0.3)', }}>Pub Quiz</Card>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+      </Row>
+ <Row className="p-1">
+        <Col>
+         <Card border="secondary" className="h-100">
+        <Card.Header>28</Card.Header>
+        <Card.Body>
+          <Card.Text>
+               <p>No events</p>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+            <Card border="secondary" className="h-100">
+        <Card.Header>29</Card.Header>
+        <Card.Body>
+          <Card.Text>
+              <p>No events</p>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card border="secondary" className="h-100">
+        <Card.Header>30</Card.Header>
+        <Card.Body>
+          <Card.Text>
+             <Card className="m-1 p-1" style={{ backgroundColor: 'rgba(199, 0, 255, 0.3)', }}>Sinners</Card>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card style={{ opacity: 0.5, }} border="secondary" className="h-100">
+        <Card.Header>1</Card.Header>
+        <Card.Body>
+          <Card.Text>
+                    <Card className="m-1 p-1" style={{ backgroundColor: 'rgba(245, 29, 81, 0.3)', }}>December Party</Card>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card style={{ opacity: 0.5, }} border="secondary" className="h-100">
+        <Card.Header>2</Card.Header>
+        <Card.Body>
+          <Card.Text>
+              <Card className="m-1 p-1" style={{ backgroundColor: 'rgba(255, 0, 0, 0.3)' }}>Bop</Card>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card style={{ opacity: 0.5, }} border="secondary" className="h-100">
+        <Card.Header>3</Card.Header>
+        <Card.Body>
+          <Card.Text>
+             <p>No events</p>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+        <Col>
+              <Card style={{ opacity: 0.5, }} border="secondary" className="h-100">
+        <Card.Header>4</Card.Header>
+        <Card.Body>
+          <Card.Text>
+          <Card className="m-1 p-1" style={{ backgroundColor: 'rgba(35, 238, 235, 0.3)', }}>Pub Quiz</Card>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+        </Col>
+      </Row>
+    </Container>
+    </div>
 
 
   );

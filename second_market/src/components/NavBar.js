@@ -13,7 +13,7 @@ function NavBar() {
   return (
     <Navbar bg="light" expand="lg" className="m-1">
       <Container fluid>
-        <Navbar.Brand href="#">St Andrews Ticket Market</Navbar.Brand>
+        <Navbar.Brand href="#">Pigeon</Navbar.Brand>
         {user ? (
             <>
                       <Navbar.Toggle aria-controls="navbarScroll" />
@@ -24,6 +24,7 @@ function NavBar() {
             navbarScroll
           >
             <Link className="m-1" id="RouterNavLink" to="/home">Home</Link>
+            <Link className="m-1" id="RouterNavLink" to="/second_market">Ticket Market</Link>
             <Link className="m-1" id="RouterNavLink" to="/mytickets">My Tickets</Link>
             <Link className="m-1" id="RouterNavLink" to="/account">Account</Link>
             <Link className="m-1" id="RouterNavLink" to="/login" onClick={logoutUser}>Logout</Link>

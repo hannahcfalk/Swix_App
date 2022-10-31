@@ -7,6 +7,7 @@ import { AuthProvider } from "./context/AuthContext";
 import Login from "./views/LoginPage";
 import RegisterPage from "./views/RegisterPage";
 import Dashboard from "./views/Dashboard";
+import TicketMarket from "./views/TicketMarket";
 import Account from "./views/Account";
 import MyTickets from "./views/MyTickets";
 import NoPage from "./views/NoPage";
@@ -25,6 +26,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/*" element={<PrivateOutlet />}>
           <Route path="home" element={<Dashboard />} />
+          <Route path="second_market" element={<TicketMarket />} />
           <Route path="account" element={<Account />} />
           <Route path="mytickets" element={<MyTickets />} />
           <Route path="*" element={<NoPage />} />

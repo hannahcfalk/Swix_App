@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import example_qr from '../views/images/example_qr.png';
 
 function TicketList(props) {
     const [showBuyModal, setShowBuyModal] = useState(false);
@@ -53,16 +54,32 @@ function TicketList(props) {
 }
 
 function MyBoughtTicketList(props) {
+        const [showModal, setShowModal] = useState(false);
+
+    const handleCloseModal = () => setShowModal(false);
+    const handleShowModal = () => setShowModal(true);
 	return (
-        <Card className="border-dark m-1">
+        <div>
+        <Card className="border-dark m-1" onClick={handleShowModal}>
             <Card.Body className="text-center">
                 <Card.Title>{props.event}</Card.Title>
                 <Card.Subtitle className="mb-2">{'\u00A3'}{props.price}</Card.Subtitle>
-                <Card.Link href="#">{props.url}</Card.Link>
+                {/*<Card.Link href="#">{props.url}</Card.Link>*/}
                 <Card.Text className="mb-2 text-danger" >{props.status}</Card.Text>
-                <Card.Text>FIXR LINK: <Card.Link href="#">{props.fixr}</Card.Link></Card.Text>
+                {/*<Card.Text>FIXR LINK: <Card.Link href="#">{props.fixr}</Card.Link></Card.Text>*/}
             </Card.Body>
         </Card>
+                    <Modal show={showModal} onHide={handleCloseModal}>
+                 <Card className="text-center">
+                  <Card.Img variant="top" src={example_qr} />
+                                    <Card.Body>
+                    <Card.Text>
+                      Show this code to get in
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+            </Modal>
+            </div>
 	);
 }
 
@@ -72,7 +89,7 @@ function MyTicketList(props) {
             <Card.Body className="text-center">
                 <Card.Title>{props.event}</Card.Title>
                 <Card.Subtitle className="mb-2">{'\u00A3'}{props.price}</Card.Subtitle>
-                <Card.Link href="#">{props.url}</Card.Link>
+              { /* <Card.Link href="#">{props.url}</Card.Link>*/}
                 <Card.Text className="mb-2 text-danger" >{props.status}</Card.Text>
             </Card.Body>
         </Card>
