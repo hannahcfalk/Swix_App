@@ -11,6 +11,7 @@ import Col from 'react-bootstrap/Col';
 import ErrorToast from '../components/ErrorToast';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import logopigeon from './images/logopigeon.png';
 
 const schema = Yup.object().shape({
          username: Yup.string()
@@ -49,6 +50,7 @@ const LoginPage = () => {
         <Card.Title>
                 <Card className="m-1 p-3" bg="light">
                   <Card.Body className="text-center">
+                               <Card.Img variant="top" src={logopigeon} />
                     <Card.Title>Pigeon</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">Securely buy and transfer tickets</Card.Subtitle>
                   </Card.Body>
