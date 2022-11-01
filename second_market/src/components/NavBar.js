@@ -23,7 +23,7 @@ function NavBar() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Link className="m-1" id="RouterNavLink" to="/home">Home</Link>
+            <Link className="m-1" id="RouterNavLink" to="/">Home</Link>
             <Link className="m-1" id="RouterNavLink" to="/second_market">Ticket Market</Link>
             <Link className="m-1" id="RouterNavLink" to="/mytickets">My Tickets</Link>
             <Link className="m-1" id="RouterNavLink" to="/account">Account</Link>

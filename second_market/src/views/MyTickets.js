@@ -18,14 +18,14 @@ function MyTickets() {
             <Tab eventKey="sold" title="Sold">
                 <Row>
                     <Col className="p-1">
-                        <Ticket event="Opening Ball" price="45.00" url="blah.com" status="SOLD"/>
+                        <Ticket event="Fright Night" price="8.00" url="blah.com" status="SOLD"/>
                     </Col>
                 </Row>
             </Tab>
             <Tab eventKey="pending_sale" title="Pending Sale">
                 <Row>
                     <Col className="p-1">
-                        <Ticket event="Down To Funk" price="5.00" url="blah.com" status="PENDING SALE"/>
+                        <Ticket event="80s Bop" price="5.00" url="blah.com" status="PENDING SALE"/>
                     </Col>
                 </Row>
             </Tab>

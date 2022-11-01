@@ -25,7 +25,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/*" element={<PrivateOutlet />}>
-          <Route path="home" element={<Dashboard />} />
+          <Route path="" element={<Dashboard />} />
           <Route path="second_market" element={<TicketMarket />} />
           <Route path="account" element={<Account />} />
           <Route path="mytickets" element={<MyTickets />} />
